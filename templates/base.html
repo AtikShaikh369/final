@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Soil Quality</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <br><br><br>
+    <div id="myDIV">
+        <ul>
+            <li><a class="navlink" href="/">Home</a></li>
+            <li><a class="navlink" href="/datavisual">Data Visualization</a></li>
+            <li><a class="navlink" href="/predict">Prediction</a></li>
+            <li><a class="navlink" href="/accuracy">Accuracy</a></li>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        for (var i = 0; i < document.links.length; i++) {
+            if (document.links[i].href == document.URL) {
+                document.links[i].className = 'active';
+            }
+        }
+    </script>
+
+    {% block body %}{% endblock %}
+</body>
+
+</html>

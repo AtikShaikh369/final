@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Index</title>
+{% endblock %}
+
+{% block body %}
+
+<!-- <br><br><br>
+      <br><br><br>
+      <br><br><br>
+    <div class="sidenav">
+      
+      <a href="#">Link</a>
+      <a href="#">Link</a>
+    </div> -->
+
+<!-- <button class="btn" id="accuracy_btn">
+        Accuracy
+    </button>
+    <script type="text/javascript">
+        document.getElementById("accuracy_btn").onclick = function () {
+            location.href = "accuracy";
+        };
+    </script> -->
+
+
+<!-- <form action="{{ url_for('accuracy')}}" method="post">
+<button class="btn" type="submit">
+  Accuracy
+</button>
+</form> -->
+
+{% if prediction_text is defined %}
+<br>
+<br>
+<h3>Prediction</h3>
+
+<table border="1">
+  <tr>
+    <th>Classification Techniques</th>
+    <th>Prediction</th>
+    {% for item in prediction_text %}
+  <tr>
+    <td>{{item}}</td>
+    <td>{{prediction_text[item]}}</td>
+  </tr>
+  {% endfor%}
+</table>
+{% endif %}
+<br>
+<br>
+
+
+{% endblock %}

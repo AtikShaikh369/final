@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Index</title>
+{% endblock %}
+
+{% block body %}
+
+
+<!-- <form action="/accuracy" method="post">
+    <button class="btn" type="submit">
+      Accuracy
+    </button>
+</form> -->
+
+{% if accuracy is defined %}
+<h3>Accuracy</h3>
+
+<table border="1">
+    <tr>
+        <th>Classification Techniques</th>
+        <th>Accuracy</th>
+    </tr>
+    {% for item in accuracy %}
+    <tr>
+        <td>{{item}}</td>
+        <td>{{accuracy[item]}}</td>
+    </tr>
+    {% endfor%}
+</table>
+{% endif %}
+
+
+{% endblock %}

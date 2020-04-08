@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>visualization</title>
+{% endblock %}
+
+{% block body %}
+ 
+<form action='/plot' method="POST">
+  <input type="radio" name="plot" value="line">line
+  <input type="radio" name="plot" value="histogram">histogram
+  <input type="radio" name="plot" value="scatter">scatter
+  <input type="submit">
+</form>
+
+<div id="container">
+  {% if plots|length == 1 %}
+  
+    {{plots['graph']|safe}}
+
+  {% endif %}
+  <table>
+    {% if plots|length > 1 %}
+    <tr>
+      <td>
+        {{plots['ph']|safe}}
+      </td>
+      <td>
+        {{plots['cec']|safe}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{plots['calcium']|safe}}
+      </td>
+    </tr>
+
+    {% endif %}
+  </table>
+
+</div>
+{% endblock %}
