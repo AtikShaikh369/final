@@ -49,8 +49,20 @@
 </table>
 
   {% if quality is defined %}
-    <p><h2>Your entered values are {{ features }}</h2></p>
-    <p><h2>Your soil quality is {{ quality }}</h2></p>
+    <p><h2>Your soil quality is <span class="quality">{{ quality }}</span></h2></p>
+    <p><h2>Your entered values are, </h2></p>
+    <table border = 1>
+      <tr>
+        <th> Attributes </th>
+        <th> values </th>
+     </tr>
+      {% for key, value in input.items() %}
+         <tr>
+            <td> {{ key }} </td>
+            <td> {{ value }} </td>
+         </tr>
+      {% endfor %}
+   </table>
   {% endif %}
 {% endif %}
 <br>

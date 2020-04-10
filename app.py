@@ -53,7 +53,9 @@ def predict():
         quality = find_quality(res)
         output = {'Decision Tree': output_DT, 'KNN': output_KNN,
                   'SVM': output_SVM, 'Naive Bayes': output_NB}
-        return render_template('result.html',  prediction_text=output, quality=quality, features = final_features)
+
+        input = request.form
+        return render_template('result.html',  prediction_text=output, quality=quality, input = input)
     else:
         return render_template('predict.html')
 
