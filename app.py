@@ -40,12 +40,30 @@ def predict():
         output_KNN = round(prediction_KNN[0], 2)
         output_SVM = round(prediction_SVM[0], 2)
         output_NB = round(prediction_NB[0], 2)
+        
+        list = [output_DT, output_KNN, output_SVM, output_NB]
+        list = [2, 1, 0, 2]
+        max = 0
+        res = list[0] 
+        for i in list: 
+            freq = list.count(i) 
+            if freq > max: 
+                max = freq 
+                res = i 
+        quality = find_quality(res)
         output = {'Decision Tree': output_DT, 'KNN': output_KNN,
                   'SVM': output_SVM, 'Naive Bayes': output_NB}
-        return render_template('result.html',  prediction_text=output)
+        return render_template('result.html',  prediction_text=output, quality=quality, features = final_features)
     else:
         return render_template('predict.html')
 
+def find_quality(argument): 
+    switcher = { 
+        0: "low", 
+        1: "medium", 
+        2: "high", 
+    } 
+    return switcher.get(argument, "nothing")
 
 @app.route('/accuracy')
 def accuracy():
@@ -94,9 +112,12 @@ def draw_fig(plot):
 
 @app.route('/plot', methods=['POST', 'GET'])
 def plot():
-    plot = request.form.get('plot')
-    plots = draw_fig(plot)
-    return render_template('visual.html', plots=plots)
+    if request.method == 'POST':
+        plot = request.form.get('plot')
+        plots = draw_fig(plot)
+        return render_template('visual.html', plots=plots)
+    else:
+        return render_template('visual.html')
 
 
 if __name__ == "__main__":

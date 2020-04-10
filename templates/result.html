@@ -45,8 +45,13 @@
     <td>{{item}}</td>
     <td>{{prediction_text[item]}}</td>
   </tr>
-  {% endfor%}
+    {% endfor%}
 </table>
+
+  {% if quality is defined %}
+    <p><h2>Your entered values are {{ features }}</h2></p>
+    <p><h2>Your soil quality is {{ quality }}</h2></p>
+  {% endif %}
 {% endif %}
 <br>
 <br>
