@@ -34,9 +34,9 @@
 {% if prediction_text is defined %}
 <br>
 <br>
-<h3>Prediction</h3>
+<h1>Prediction</h1>
 
-<table border="1">
+<table border="1" class="output">
   <tr>
     <th>Classification Techniques</th>
     <th>Prediction</th>
@@ -51,7 +51,7 @@
   {% if quality is defined %}
     <p><h2>Your soil quality is <span class="quality">{{ quality }}</span></h2></p>
     <p><h2>Your entered values are, </h2></p>
-    <table border = 1>
+    <table border = 1 class="output">
       <tr>
         <th> Attributes </th>
         <th> values </th>

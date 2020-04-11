@@ -42,7 +42,6 @@ def predict():
         output_NB = round(prediction_NB[0], 2)
         
         list = [output_DT, output_KNN, output_SVM, output_NB]
-        list = [2, 1, 0, 2]
         max = 0
         res = list[0] 
         for i in list: 

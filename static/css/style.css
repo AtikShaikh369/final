@@ -187,3 +187,37 @@ body {
 .quality{
   color: red;
 }
+
+/* Table styling */
+table:not(.plots){
+  background-color: white;
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+}
+tr:nth-child(even):not(.plots){background-color: #f2f2f2;}
+
+tr:hover:not(.plots) {background-color: #ddd;}
+
+th:not(.plots) {
+  background-color: rgb(76, 99, 175);
+  color: white;
+}
+
+ th:not(.plots), td:not(.plots) {
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  width: 50%;
+}
+
+table.plots{
+  background-color: white;
+  border-collapse: collapse;
+}
+
+ h1, h2, h3 {
+   text-align: center;
+ }
