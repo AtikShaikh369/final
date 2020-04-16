@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block body %}
+
+
+<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:20%">
+  <form method="post" action="/draw">
+    <input class="w3-bar-item w3-button" type="submit" name="scatter" value="Scatter Plot">
+  </form>
+  <div class="w3-dropdown-hover">
+    <button class="w3-button">Histogram
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="w3-dropdown-content w3-bar-block">
+      <form method="post" action="/draw">
+        <input class="w3-bar-item w3-button" type="submit" name="plot" value="ph">
+        <input class="w3-bar-item w3-button" type="submit" name="plot" value="cec">
+        <input class="w3-bar-item w3-button" type="submit" name="plot" value="phosphorus">
+        <input class="w3-bar-item w3-button" type="submit" name="plot" value="potassium">
+        <input class="w3-bar-item w3-button" type="submit" name="plot" value="calcium">
+        <input class="w3-bar-item w3-button" type="submit" name="plot" value="magnesium">
+        <input class="w3-bar-item w3-button" type="submit" name="plot" value="lime_index">
+        <input class="w3-bar-item w3-button" type="submit" name="plot" value="Treatment">
+      </form>
+    </div>
+  </div>
+</div>
+
+<div style="margin-left:30%">
+  {% if graph is defined %}
+  <label for="Attribute 1">Attribute 1:</label>
+  <select id="Attribute 1" name="Attribute 1" form="graph">
+    <option disabled selected value> -- select an option -- </option>
+    <option value="pH">pH</option>
+    <option value="CEC">CEC</option>
+    <option value="phosphorus">Phosphorus</option>
+    <option value="potassium">Potassium</option>
+    <option value="calcium">Calcium</option>
+    <option value="magnesium">Magnesium</option>
+    <option value="lime_index">Lime Index</option>
+    <option value="Treatment">Treatment</option>
+  </select>
+  <label for="Attribute 2">Attribute 2:</label>
+  <select id="Attribute 2" name="Attribute 2" form="graph">
+    <option hidden disabled selected value> -- select an option -- </option>
+    <option value="pH">pH</option>
+    <option value="CEC">CEC</option>
+    <option value="phosphorus">Phosphorus</option>
+    <option value="potassium">Potassium</option>
+    <option value="calcium">Calcium</option>
+    <option value="magnesium">Magnesium</option>
+    <option value="lime_index">Lime Index</option>
+    <option value="Treatment">Treatment</option>
+  </select>
+  <form action='/plot' method="POST" id="graph">
+    <input type="submit" name="scatter" value="plot">
+  </form>
+      {% if plot is defined %}
+        <img src="/static/images/{{plot}}.png" class="center">
+      {% endif %}
+  <div class="w3-container">
+    {% elif plot is defined %}
+    <img src="/static/images/{{plot}}.png" class="center">
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

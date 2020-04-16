@@ -2,6 +2,7 @@
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn import metrics
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import DecisionTreeClassifier
@@ -14,6 +15,14 @@ import pandas as pd
 import pickle
 
 dataset = pd.read_csv('soildata.csv')
+"""
+    dataset.head()
+    dataset.tail()
+    dataset.shape
+    dataset.size
+    dataset.count()
+    dataset['pH'].value_counts()
+"""
 
 le = LabelEncoder()
 dataset['Treatment'] = le.fit_transform(dataset['Treatment'])
@@ -44,6 +53,9 @@ y_pred = classifier_DT.predict(X_test)
 # Making the Confusion Matrix
 cm = confusion_matrix(y_test, y_pred)
 asDT = 100*accuracy_score(y_pred, y_test)
+maeDT = metrics.mean_absolute_error(y_test, y_pred)
+mseDT = metrics.mean_squared_error(y_test, y_pred)
+rmseDT = np.sqrt(metrics.mean_squared_error(y_test, y_pred))
 
 # Saving model to disk
 pickle.dump(classifier_DT, open('model_DT.pkl', 'wb'))
@@ -57,6 +69,9 @@ y_pred = classifier_KNN.predict(X_test)
 # Making the Confusion Matrix
 cm = confusion_matrix(y_test, y_pred)
 asKNN = 100*accuracy_score(y_pred, y_test)
+maeKNN = metrics.mean_absolute_error(y_test, y_pred)
+mseKNN = metrics.mean_squared_error(y_test, y_pred)
+rmseKNN = np.sqrt(metrics.mean_squared_error(y_test, y_pred))
 
 # Saving model to disk
 pickle.dump(classifier_KNN, open('model_KNN.pkl', 'wb'))
@@ -71,6 +86,9 @@ y_pred = classifier_SVM.predict(X_test)
 # Making the Confusion Matrix
 cm = confusion_matrix(y_test, y_pred)
 asSVM = 100*accuracy_score(y_pred, y_test)
+maeSVM = metrics.mean_absolute_error(y_test, y_pred)
+mseSVM = metrics.mean_squared_error(y_test, y_pred)
+rmseSVM = np.sqrt(metrics.mean_squared_error(y_test, y_pred))
 # Saving model to disk
 pickle.dump(classifier_SVM, open('model_SVM.pkl', 'wb'))
 
@@ -85,10 +103,18 @@ y_pred = classifier_NB.predict(X_test)
 # Making the Confusion Matrix
 cm = confusion_matrix(y_test, y_pred)
 asNB = 100*accuracy_score(y_pred, y_test)
-
+maeNB = metrics.mean_absolute_error(y_test, y_pred)
+mseNB = metrics.mean_squared_error(y_test, y_pred)
+rmseNB = np.sqrt(metrics.mean_squared_error(y_test, y_pred))
 # Saving model to disk
 pickle.dump(classifier_NB, open('model_NB.pkl', 'wb'))
 
 accuracy = {"Decision Tree": asDT, "SVM": asSVM,
             "KNN": asKNN, "Naive Bayes": asNB}
-
+mean_absolute_error ={"Decision Tree": maeSVM, "SVM": maeSVM,
+            "KNN": maeKNN, "Naive Bayes": maeNB}
+mean_squared_error = {"Decision Tree": mseDT, "SVM": mseSVM,
+            "KNN": mseKNN, "Naive Bayes": mseNB}     
+root_mean_squared_error = {"Decision Tree": rmseDT, "SVM": rmseSVM,
+            "KNN": rmseKNN, "Naive Bayes": rmseNB}     
+            

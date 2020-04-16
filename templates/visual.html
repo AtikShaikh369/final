@@ -5,14 +5,50 @@
 {% endblock %}
 
 {% block body %}
- 
-<form action='/plot' method="POST">
-  <input type="radio" name="plot" value="line">line
-  <input type="radio" name="plot" value="histogram">histogram
-  <input type="radio" name="plot" value="scatter">scatter
-  <input type="submit">
+<div class="sidenav">
+<form action='/plot' method="POST" id="plot">
+  <input type="radio" name="plot" value="ph">pH<br>
+  <input type="radio" name="plot" value="cec">CEC<br>
+  <input type="radio" name="plot" value="phosphorus">Phosphorus<br>
+  <input type="radio" name="plot" value="potassium">Potassium<br>
+  <input type="radio" name="plot" value="calcium">Calcium<br>
+  <input type="radio" name="plot" value="magnesium">Magnesium<br>
+  <input type="radio" name="plot" value="lime_index">Lime index<br>
+  <input type="radio" name="plot" value="Treatment">Treatment<br>
+  <input type="submit" value="plot">
 </form>
+</div>
 
+<label for="Attribute 1">Attribute 1:</label>
+<select id="Attribute 1" name="Attribute 1" form="plot">
+  <option disabled selected value> -- select an option -- </option>
+  <option value="pH">pH</option>
+  <option value="CEC">CEC</option>
+  <option value="phosphorus">Phosphorus</option>
+  <option value="potassium">Potassium</option>
+  <option value="calcium">Calcium</option>
+  <option value="magnesium">Magnesium</option>
+  <option value="lime_index">Line Index</option>
+  <option value="Treatment">Treatment</option>
+</select>
+<select id="Attribute 2" name="Attribute 2" form="plot">
+  <option hidden disabled selected value> -- select an option -- </option>
+  <option value="pH">pH</option>
+  <option value="CEC">CEC</option>
+  <option value="phosphorus">Phosphorus</option>
+  <option value="potassium">Potassium</option>
+  <option value="calcium">Calcium</option>
+  <option value="magnesium">Magnesium</option>
+  <option value="lime_index">Line Index</option>
+  <option value="Treatment">Treatment</option>
+</select>
+
+
+{% if plot is defined %}
+  <img src="/static/images/{{plot}}.png" class="center">
+{% endif %}
+
+<!--
 <div id="container">
   {% if plots|length == 1 %}
   
@@ -38,5 +74,5 @@
     {% endif %}
   </table>
 
-</div>
+</div>-->
 {% endblock %}

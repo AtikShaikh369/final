@@ -1,5 +1,5 @@
 import numpy as np
-from flask import Flask, request, jsonify, render_template, redirect, json
+from flask import Flask, request, jsonify, render_template, redirect, json, url_for
 import pickle
 import json
 import matplotlib.pyplot as plt
@@ -68,15 +68,15 @@ def find_quality(argument):
 
 @app.route('/accuracy')
 def accuracy():
-    from model import accuracy
-    return render_template('accuracy.html', accuracy=accuracy)
+    from model import accuracy, mean_absolute_error, mean_squared_error, root_mean_squared_error
+    return render_template('accuracy.html', accuracy=accuracy, mean_absolute_error = mean_absolute_error, mean_squared_error = mean_squared_error, root_mean_squared_error = root_mean_squared_error)
 
 
 @app.route('/datavisual')
 def visual():
-    return render_template('visual.html')
+    return render_template('graphs.html')
 
-
+"""
 def draw_fig(plot):
     if plot == 'line':
         fig, ax = plt.subplots()
@@ -109,17 +109,95 @@ def draw_fig(plot):
         calcium = mpld3.fig_to_html(fig)
         plots = {'ph': ph, 'cec': cec, 'calcium': calcium}
         return plots
+"""
+def savefigure():
+    from model import dataset
+    fig, ax = plt.subplots()
+    ax.hist(dataset['pH'])
+    plt.xlabel('pH',fontsize=15)
+    plt.ylabel('Frequency',fontsize=15)
+    plt.savefig('static/images/ph.png')
 
+    fig, ax = plt.subplots()
+    ax.hist(dataset['CEC'])
+    plt.xlabel('CEC',fontsize=15)
+    plt.ylabel('Frequency',fontsize=15)
+    plt.savefig('static/images/cec.png')
+    
+    fig, ax = plt.subplots()
+    ax.hist(dataset['phosphorus'])
+    plt.xlabel('phosphorus',fontsize=15)
+    plt.ylabel('Frequency',fontsize=15)
+    plt.savefig('static/images/phosphorus.png')
+    
+    fig, ax = plt.subplots()
+    ax.hist(dataset['potassium'])
+    plt.xlabel('potassium',fontsize=15)
+    plt.ylabel('Frequency',fontsize=15)
+    plt.savefig('static/images/potassium.png')
+    
+    fig, ax = plt.subplots()
+    ax.hist(dataset['calcium'])
+    plt.xlabel('calcium',fontsize=15)
+    plt.ylabel('Frequency',fontsize=15)
+    plt.savefig('static/images/calcium.png')
+    
+    fig, ax = plt.subplots()
+    ax.hist(dataset['magnesium'])
+    plt.xlabel('magnesium',fontsize=15)
+    plt.ylabel('Frequency',fontsize=15)
+    plt.savefig('static/images/magnesium.png')
+
+    fig, ax = plt.subplots()
+    ax.hist(dataset['lime_index'])
+    plt.xlabel('lime_index',fontsize=15)
+    plt.ylabel('Frequency',fontsize=15)
+    plt.savefig('static/images/lime_index.png')
+
+    fig, ax = plt.subplots()
+    ax.hist(dataset['Treatment'])
+    plt.xlabel('Treatment',fontsize=15)
+    plt.ylabel('Frequency',fontsize=15)
+    plt.savefig('static/images/Treatment.png')
+    
+def savefig(attribute1, attribute2):
+    from model import dataset
+    low = dataset[dataset['Treatment']==0][0:400]
+    medium = dataset[dataset['Treatment']==1][0:400]
+    high = dataset[dataset['Treatment']==2][0:400]
+
+    axes = low.plot(kind='scatter', x=attribute1, y=attribute2, color='blue', label='low')
+    axes = medium.plot(kind='scatter', x=attribute1, y=attribute2, color='red', label='medium', ax=axes)
+    plot = high.plot(kind='scatter', x=attribute1, y=attribute2, color='green', label='high', ax=axes)
+
+    fig = plot.get_figure()
+    fig.savefig("static/images/{}.png".format(attribute1+attribute2))  
 
 @app.route('/plot', methods=['POST', 'GET'])
 def plot():
+    if request.method == 'POST':    
+        #plots = draw_fig(plot)
+        attribute1 = request.form.get('Attribute 1')
+        attribute2 = request.form.get('Attribute 2')
+        if attribute1 and attribute2 is not None: 
+            savefig(attribute1, attribute2)
+            plot = attribute1 + attribute2
+            graph = 'g'
+        #return render_template('visual.html', plots=plots)
+        return render_template('graphs.html', plot = plot, graph=graph)
+    else:
+        return render_template('graphs.html')
+
+@app.route('/draw', methods=['POST', 'GET'])
+def contact():
     if request.method == 'POST':
         plot = request.form.get('plot')
-        plots = draw_fig(plot)
-        return render_template('visual.html', plots=plots)
-    else:
-        return render_template('visual.html')
-
+        scatter = request.form.get('scatter')
+        savefigure()
+        if scatter is not None:
+            graph = 'g'
+            return render_template('graphs.html', graph=graph)
+        return render_template('graphs.html', plot=plot)
 
 if __name__ == "__main__":
     app.run(debug=True)

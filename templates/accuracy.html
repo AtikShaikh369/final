@@ -29,6 +29,60 @@
     {% endfor%}
 </table>
 {% endif %}
+<br><br>
+{% if mean_absolute_error is defined %}
+<h1>Mean Absolute Error</h1>
+
+<table border="1" class="output">
+    <tr>
+        <th>Classification Techniques</th>
+        <th>Mean Absolute Error</th>
+    </tr>
+    {% for item in mean_absolute_error %}
+    <tr>
+        <td>{{item}}</td>
+        <td>{{mean_absolute_error[item]}}</td>
+    </tr>
+    {% endfor%}
+</table>
+{% endif %}
+
+<br><br>
+{% if mean_squared_error is defined %}
+<h1>Mean Squared Error</h1>
+
+<table border="1" class="output">
+    <tr>
+        <th>Classification Techniques</th>
+        <th>Mean Squared Error</th>
+    </tr>
+    {% for item in mean_squared_error %}
+    <tr>
+        <td>{{item}}</td>
+        <td>{{mean_squared_error[item]}}</td>
+    </tr>
+    {% endfor%}
+</table>
+{% endif %}
+<br><br>
+{% if root_mean_squared_error is defined %}
+<h1>Root Mean Squared Error</h1>
+
+<table border="1" class="output">
+    <tr>
+        <th>Classification Techniques</th>
+        <th>Root Mean Squared Error</th>
+    </tr>
+    {% for item in root_mean_squared_error %}
+    <tr>
+        <td>{{item}}</td>
+        <td>{{root_mean_squared_error[item]}}</td>
+    </tr>
+    {% endfor%}
+</table>
+{% endif %}
+
+
 
 
 {% endblock %}
