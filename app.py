@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, render_template, redirect, json, url_
 import pickle
 import json
 import matplotlib.pyplot as plt
-import mpld3
+#import mpld3
 from model import X, y
 
 app = Flask(__name__)
